@@ -1,0 +1,24 @@
+{
+    "diff": "../tool/rcmp9",
+"testcase":[
+{"in":"wifi01.in","out":"wifi01.out","timelimit":2000},
+{"in":"wifi02.in","out":"wifi02.out","timelimit":2000},
+{"in":"wifi03.in","out":"wifi03.out","timelimit":2000},
+{"in":"wifi04.in","out":"wifi04.out","timelimit":2000},
+{"in":"wifi05.in","out":"wifi05.out","timelimit":2000},
+{"in":"wifi06.in","out":"wifi06.out","timelimit":2000},
+{"in":"wifi07.in","out":"wifi07.out","timelimit":2000},
+{"in":"wifi08.in","out":"wifi08.out","timelimit":2000},
+{"in":"wifi09.in","out":"wifi09.out","timelimit":2000},
+{"in":"wifi10.in","out":"wifi10.out","timelimit":2000},
+{"in":"wifi11.in","out":"wifi11.out","timelimit":2000},
+{"in":"wifi12.in","out":"wifi12.out","timelimit":2000},
+{"in":"wifi13.in","out":"wifi13.out","timelimit":2000},
+{"in":"wifi14.in","out":"wifi14.out","timelimit":2000},
+{"in":"wifi15.in","out":"wifi15.out","timelimit":2000},
+{"in":"wifi16.in","out":"wifi16.out","timelimit":2000},
+{"in":"wifi17.in","out":"wifi17.out","timelimit":2000},
+{"in":"wifi18.in","out":"wifi18.out","timelimit":2000},
+{"in":"wifi19.in","out":"wifi19.out","timelimit":2000},
+{"in":"wifi20.in","out":"wifi20.out","timelimit":2000}
+]}

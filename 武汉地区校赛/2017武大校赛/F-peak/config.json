@@ -1,0 +1,15 @@
+{
+    "diff": "../tool/ncmp",
+"testcase":[
+{"in":"HP1.in","out":"HP1.out","timelimit":1000},
+{"in":"HP10.in","out":"HP10.out","timelimit":1000},
+{"in":"HP11.in","out":"HP11.out","timelimit":1000},
+{"in":"HP2.in","out":"HP2.out","timelimit":1000},
+{"in":"HP3.in","out":"HP3.out","timelimit":1000},
+{"in":"HP4.in","out":"HP4.out","timelimit":1000},
+{"in":"HP5.in","out":"HP5.out","timelimit":1000},
+{"in":"HP6.in","out":"HP6.out","timelimit":1000},
+{"in":"HP7.in","out":"HP7.out","timelimit":1000},
+{"in":"HP8.in","out":"HP8.out","timelimit":1000},
+{"in":"HP9.in","out":"HP9.out","timelimit":1000}
+]}

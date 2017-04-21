@@ -1,0 +1,19 @@
+{
+    "diff": "../tool/ncmp",
+"testcase":[
+{"in":"input01.in","out":"input01.out","timelimit":1000},
+{"in":"input02.in","out":"input02.out","timelimit":1000},
+{"in":"input03.in","out":"input03.out","timelimit":1000},
+{"in":"input04.in","out":"input04.out","timelimit":1000},
+{"in":"input05.in","out":"input05.out","timelimit":1000},
+{"in":"input06.in","out":"input06.out","timelimit":1000},
+{"in":"input07.in","out":"input07.out","timelimit":1000},
+{"in":"input08.in","out":"input08.out","timelimit":1000},
+{"in":"input09.in","out":"input09.out","timelimit":1000},
+{"in":"input10.in","out":"input10.out","timelimit":1000},
+{"in":"input11.in","out":"input11.out","timelimit":1000},
+{"in":"input12.in","out":"input12.out","timelimit":1000},
+{"in":"input13.in","out":"input13.out","timelimit":1000},
+{"in":"input14.in","out":"input14.out","timelimit":1000},
+{"in":"input15.in","out":"input15.out","timelimit":1000}
+]}

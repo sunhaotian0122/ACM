@@ -1,0 +1,19 @@
+{
+    "diff": "../tool/ncmp",
+"testcase":[
+{"in":"room01.in","out":"room01.out","timelimit":1500},
+{"in":"room02.in","out":"room02.out","timelimit":1500},
+{"in":"room03.in","out":"room03.out","timelimit":1500},
+{"in":"room04.in","out":"room04.out","timelimit":1500},
+{"in":"room05.in","out":"room05.out","timelimit":1500},
+{"in":"room06.in","out":"room06.out","timelimit":1500},
+{"in":"room07.in","out":"room07.out","timelimit":1500},
+{"in":"room08.in","out":"room08.out","timelimit":1500},
+{"in":"room09.in","out":"room09.out","timelimit":1500},
+{"in":"room10.in","out":"room10.out","timelimit":1500},
+{"in":"room11.in","out":"room11.out","timelimit":1500},
+{"in":"room12.in","out":"room12.out","timelimit":1500},
+{"in":"room13.in","out":"room13.out","timelimit":1500},
+{"in":"room14.in","out":"room14.out","timelimit":1500},
+{"in":"room15.in","out":"room15.out","timelimit":1500}
+]}

@@ -1,0 +1,9 @@
+{
+    "diff": "../tool/ncmp",
+"testcase":[
+{"in":"1.in","out":"1.out","timelimit":1000},
+{"in":"2.in","out":"2.out","timelimit":1000},
+{"in":"3.in","out":"3.out","timelimit":1000},
+{"in":"4.in","out":"4.out","timelimit":1000},
+{"in":"5.in","out":"5.out","timelimit":1000}
+]}

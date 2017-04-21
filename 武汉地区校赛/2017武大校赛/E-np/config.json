@@ -1,0 +1,14 @@
+{
+    "diff": "../tool/ncmp",
+"testcase":[
+{"in":"stella0.in","out":"stella0.out","timelimit":1000},
+{"in":"stella1.in","out":"stella1.out","timelimit":1000},
+{"in":"stella2.in","out":"stella2.out","timelimit":1000},
+{"in":"stella3.in","out":"stella3.out","timelimit":1000},
+{"in":"stella4.in","out":"stella4.out","timelimit":1000},
+{"in":"stella5.in","out":"stella5.out","timelimit":1000},
+{"in":"stella6.in","out":"stella6.out","timelimit":1000},
+{"in":"stella7.in","out":"stella7.out","timelimit":1000},
+{"in":"stella8.in","out":"stella8.out","timelimit":1000},
+{"in":"stella9.in","out":"stella9.out","timelimit":1000}
+]}

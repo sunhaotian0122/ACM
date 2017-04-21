@@ -1,0 +1,24 @@
+Kanna the insect catcher
+
+Kanna is interested in catching insects. She was used to catching insects with her sweep net. But resently, she found it was more effective to set traps. She plans to set N circular traps, k th trap is at (Xk, Yk) and its radius is Rk. It can capture Wk insects. When two traps are intersectant (excluding tangent) they will become useless. So Kanna want to choose some traps to set so that she can catching maximum insects. Can you help her?
+
+Input
+One integer N(1 <= N <= 2000) in the first line.
+In the following N lines, k th line has 4 integers Xk, Yk, Rk, Wk(1 <= Xk, Yk, Rk <= 1e8, 1 <= Wk <= 1e6).
+All these input have been explained above.
+Because the area she set traps is so narrow, each horizontal line will cross (excluding tangent) at most two traps from the N traps.
+
+Output
+One integer in one line, represents the maximum insects Kanna can catch.
+
+Sample Input
+6
+1 1 1 1
+3 1 1 2
+1 4 2 3
+4 8 3 4
+4 3 1 5
+2 10 3 3
+
+Sample Output
+15

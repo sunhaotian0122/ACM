@@ -1,0 +1,16 @@
+{
+    "diff": "../tool/lcmp",
+"testcase":[
+{"in":"00.in","out":"00.out","timelimit":1000},
+{"in":"01.in","out":"01.out","timelimit":1000},
+{"in":"02.in","out":"02.out","timelimit":1000},
+{"in":"03.in","out":"03.out","timelimit":1000},
+{"in":"04.in","out":"04.out","timelimit":1000},
+{"in":"05.in","out":"05.out","timelimit":1000},
+{"in":"06.in","out":"06.out","timelimit":1000},
+{"in":"07.in","out":"07.out","timelimit":1000},
+{"in":"08.in","out":"08.out","timelimit":1000},
+{"in":"09.in","out":"09.out","timelimit":1000}
+],
+	"ext_files":["rps.h", "CC17.class", "CC17.py"]
+}

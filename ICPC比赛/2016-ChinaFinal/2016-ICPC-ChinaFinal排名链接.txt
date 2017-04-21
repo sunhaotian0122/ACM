@@ -1,0 +1,6 @@
+http://board.acmicpc.cn/
+
+写出三道题就有奖   4道题最快的几个能得银
+
+!includedir /etc/mysql/conf.d/
+!includedir /etc/mysql/mysql.conf.d/

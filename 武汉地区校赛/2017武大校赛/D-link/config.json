@@ -1,0 +1,5 @@
+{
+    "diff": "../tool/ncmp",
+"testcase":[
+{"in":"input1","out":"output1","timelimit":1000}
+]}
