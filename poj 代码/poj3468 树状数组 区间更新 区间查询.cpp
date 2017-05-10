@@ -20,6 +20,7 @@ void update(ll x,ll value)
     {
         c1[x] += value;
         c2[x] += i*value;
+        //更新c1[]的同时更新c2[]
         x += lowbit(x);
     }
 }
@@ -34,6 +35,8 @@ ll query(ll x)
         x -= lowbit(x);
     }
     return (i+1)*tmp1-tmp2;
+    //tmp1 = c1[1]+...+c1[n],tmp2 = c2[1]+...+c2[n] = 1*c1[1]+...+n*c1[n]
+    //返回a[1]+...+a[x]
 }
 
 int main()
@@ -46,6 +49,7 @@ int main()
     for(int i=1;i<=n;i++)
     {
         scanf("%lld",a+i);
+        //初始c1[]和c2[],单点更新
         update(i,a[i]-a[i-1]);
     }
     int a,b;
@@ -57,12 +61,14 @@ int main()
         if(op=='C')
         {
             scanf("%lld",&tmp);
+            //区间更新a[],通过两次单点更新c1[]实现,更新c1[]的同时更新c2[]
             update(a,tmp);
             update(b+1,-tmp);
         }
         else
         {
             printf("%lld\n",query(b)-query(a-1));
+            //输出a[a]+...+a[b]
         }
     }
     return 0;
