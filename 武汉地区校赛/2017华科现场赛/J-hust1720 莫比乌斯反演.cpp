@@ -7,9 +7,9 @@ const double pi = acos(-1.0);
 
 const int maxn = 1e4+5;
 int vis[maxn],prime[maxn],mu[maxn];
-int sz[maxn],cnt[maxn];
+int sz[maxn],cnt[maxn];			//cnt[]为1-10000每个数的个数，sz[]为1-10000每个数的倍数的个数
 
-void Moblus()
+void Moblus()				//计算莫比乌斯函数的值
 {
     memset(vis,0,sizeof(vis));
     int num=0;
@@ -37,7 +37,7 @@ void Moblus()
 ll solve(int x)
 {
     memset(sz,0,sizeof(sz));
-    for(int i=1;i<=x;i++)
+    for(int i=1;i<=x;i++)		//求每个数倍数的个数
     {
         for(int j=i;j<=x;j+=i)
         {
@@ -47,7 +47,7 @@ ll solve(int x)
     ll ans=0;
     for(int i=1;i<=x;i++)
     {
-        if(sz[i]>=4)
+        if(sz[i]>=4)		//如果倍数个数大于4，即可用排列组合计算F(i),否则组数为0
         {
             ans += (ll)mu[i]*sz[i]*(sz[i]-1)*(sz[i]-2)*(sz[i]-3)/24;
         }
