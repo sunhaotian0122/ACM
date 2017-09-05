@@ -2,7 +2,7 @@
 using namespace std;
 
 const int maxn = 1e5+5;
-int rt[maxn*20],ls[maxn*20],rs[maxn*20],sum[maxn*20];
+int rt[maxn],ls[maxn*20],rs[maxn*20],sum[maxn*20];
 int a[maxn],b[maxn];
 int n,q,ql,qr,k,cnt;
 
