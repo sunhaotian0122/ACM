@@ -47,7 +47,7 @@ bool OnBeeline(Point P1,Point P2,Point Q)
 //判断点Q是否在P1和P2的线段上
 bool OnSegment(Point P1,Point P2,Point Q)
 {
-    return OnBeeline(P1,P2,Q)&&dcmp((P1-Q)*(P2-Q))<0;
+    return OnBeeline(P1,P2,Q)&&dcmp((P1-Q)*(P2-Q))<=0;
 }
 //判断点P是否在三角形ABC中
 bool InTriangle(Point A,Point B,Point C,Point P)
@@ -57,5 +57,22 @@ bool InTriangle(Point A,Point B,Point C,Point P)
 	double Spac = fabs((A-P)^(C-P));
 	double Spbc = fabs((B-P)^(C-P));
 	return dcmp(Sabc-Spab-Spac-Spbc)==0;
+}
+//判断点P在多边形内-射线法
+bool InPolygon(Point P)
+{
+    bool flag = false;
+    Point P1,P2; //多边形一条边的两个顶点
+    for(int i=1,j=n;i<=n;j=i++)
+    {
+		//polygon[]是给出多边形的顶点
+        P1 = polygon[i];
+        P2 = polygon[j];
+        if(OnSegment(P1,P2,P)) return true; //点在多边形一条边上
+		//前一个判断min(P1.y,P2.y)<P.y<=max(P1.y,P2.y)
+        if( (dcmp(P1.y-P.y)>0 != dcmp(P2.y-P.y)>0) && dcmp(P.x - (P.y-P1.y)*(P1.x-P2.x)/(P1.y-P2.y)-P1.x)<0)
+            flag = !flag;
+    }
+    return flag;
 }
 typedef Point Vector;
