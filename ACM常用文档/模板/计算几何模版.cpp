@@ -27,6 +27,7 @@ struct Point{
 		return x*b.y - b.x*y;
 	}
 };
+typedef Point Vector;
 //排序用，按照x的坐标从小到大，如果x相同，那么按照y从小到大
 bool operator < (const Point &a,const Point &b)
 {
@@ -47,7 +48,7 @@ bool OnBeeline(Point P1,Point P2,Point Q)
 //判断点Q是否在P1和P2的线段上
 bool OnSegment(Point P1,Point P2,Point Q)
 {
-    return OnBeeline(P1,P2,Q)&&dcmp((P1-Q)*(P2-Q))<=0;
+    return dcmp((P1-Q)^(P2-Q))==0&&dcmp((P1-Q)*(P2-Q))<=0;
 }
 //判断点P是否在三角形ABC中
 bool InTriangle(Point A,Point B,Point C,Point P)
@@ -117,4 +118,42 @@ bool InPolygon(Point P)
     }
     return wn!=0;
 }
-typedef Point Vector;
+//判断点P在多边形内-改进弧长法（多边形点顺时针给出）
+//用这个还不如用上一个转角法
+bool InPolygon(Point P)
+{
+    int q1,q2,ans=0;
+    Point P1,P2;
+    Vector V1,V2;
+    for(int i=1,j=n;i<=n;j=i++)
+    {
+        P1 = polygon[j];
+        P2 = polygon[i];
+        V1 = P1-P;
+        V2 = P2-P;
+        if(OnSegment(P1,P2,P)) return true;
+        q1 = V1.x>0 ? (V1.y>0 ? 0:3) : (V1.y>0 ? 1:2);
+        q2 = V2.x>0 ? (V2.y>0 ? 0:3) : (V2.y>0 ? 1:2);
+        int g = (q2-q1+4)%4;
+        if(g==1) ans--; //在上一象限
+        if(g==3) ans++; //在下一象限
+        if(g==2) dcmp(V1^V2)>0 ? (ans-=2) : (ans+=2); //在相对象限
+    }
+    return ans!=0;
+}
+//判断点P在多边形内-O(logn) 顺时针给出
+bool InPolygon(Point P)
+{
+    if(dcmp((polygon[n]-polygon[1])^(P-polygon[1]))<=0 || dcmp((polygon[2]-polygon[1])^(P-polygon[1]))>=0)
+        return false;
+    int l=2,r=n,mid;
+    while(l<r)
+    {
+        mid = (l+r+1)>>1;
+        if(dcmp((polygon[mid]-polygon[1])^(P-polygon[1]))<=0) l=mid;
+        else r = mid-1;
+    }
+    if(dcmp((polygon[l+1]-polygon[l])^(P-polygon[l]))>=0) return false;
+    return true;
+}
+
