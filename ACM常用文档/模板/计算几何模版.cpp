@@ -156,4 +156,15 @@ bool InPolygon(Point P)
     if(dcmp((polygon[l+1]-polygon[l])^(P-polygon[l]))>=0) return false;
     return true;
 }
-
+//判断线段A1A2和线段B1B2是否相交
+bool Segment_Intersect(Point A1,Point A2,Point B1,Point B2)
+{
+    if(max(A1.x,A2.x)>=min(B1.x,B2.x) &&
+       max(B1.x,B2.x)>=min(A1.x,A2.x) &&
+       max(A1.y,A2.y)>=min(B1.y,B2.y) &&
+       max(B1.y,B2.y)>=min(A1.y,A2.y) && //快速排斥实验
+       dcmp(((B1-A1)^(A2-A1))*((A1-B2)^(A2-A1)))>=0 && //跨立实验
+       dcmp(((A1-B1)^(B2-B1))*((B1-A2)^(B2-B1)))>=0)
+       return true;
+    else return false;
+}
