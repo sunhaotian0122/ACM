@@ -26,19 +26,24 @@ struct Point{
 	{
 		return x*b.y - b.x*y;
 	}
+	//排序用，按照x的坐标从小到大，如果x相同，那么按照y从小到大
+    bool operator <(const Point &a)const
+    {
+        return y<a.y||(y==a.y&&x<a.x);
+    }
 };
 typedef Point Vector;
-//排序用，按照x的坐标从小到大，如果x相同，那么按照y从小到大
-bool operator < (const Point &a,const Point &b)
-{
-    return a.x<b.x||(a.x==b.x&&a.y<b.y);
-}
 //三态函数，判断两个double在eps精度下的大小关系
 int dcmp(double x)
 {
     if(fabs(x)<eps) return 0;
     else
         return x<0?-1:1;
+}
+//计算两点之间的距离
+double point_dis(Point a,Point b)
+{
+    return sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y));
 }
 //判断点Q是否在P1和P2的直线上
 bool OnBeeline(Point P1,Point P2,Point Q)
@@ -167,4 +172,28 @@ bool Segment_Intersect(Point A1,Point A2,Point B1,Point B2)
        dcmp(((A1-B1)^(B2-B1))*((B1-A2)^(B2-B1)))>=0)
        return true;
     else return false;
+}
+//凸包 Jarvis步进法 O(nh) 
+void Jarvis()
+{
+    sort(polygon+1,polygon+n+1);
+    cnt=num=0;
+	//右链
+    sta[cnt++]=1,sta[cnt++]=2;
+    for(int i=3;i<=n;i++)
+    {
+        while(cnt>1 && dcmp((polygon[i]-polygon[sta[cnt-2]])^(polygon[sta[cnt-1]]-polygon[sta[cnt-2]]))>=0)
+            cnt--;
+        sta[cnt++]=i;
+    }
+    for(int i=0;i<cnt;i++) convex_hull[++num]=sta[i];
+	//左链
+    cnt=0,sta[cnt++]=n,sta[cnt++]=n-1;
+    for(int i=n-2;i>=1;i--)
+    {
+        while(cnt>1 && dcmp((polygon[i]-polygon[sta[cnt-2]])^(polygon[sta[cnt-1]]-polygon[sta[cnt-2]]))>=0)
+            cnt--;
+        sta[cnt++]=i;
+    }
+    for(int i=0;i<cnt;i++) convex_hull[++num]=sta[i];
 }
