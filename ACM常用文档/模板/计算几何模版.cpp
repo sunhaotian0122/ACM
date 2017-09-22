@@ -1,6 +1,13 @@
 const double eps = 1e-8;
 const double PI = acos(-1);
 
+//三态函数，判断两个double在eps精度下的大小关系
+int dcmp(double x)
+{
+    if(fabs(x)<eps) return 0;
+    else
+        return x<0?-1:1;
+}
 struct Point{
 	double x,y;
 	Point(double x=0,double y=0):x(x),y(y){}
@@ -27,23 +34,54 @@ struct Point{
 		return x*b.y - b.x*y;
 	}
 	//排序用，按照x的坐标从小到大，如果x相同，那么按照y从小到大
-    bool operator <(const Point &a)const
+    bool operator <(const Point &b)const
     {
-        return y<a.y||(y==a.y&&x<a.x);
+        return y<b.y||(y==b.y&&x<b.x);
     }
 };
 typedef Point Vector;
-//三态函数，判断两个double在eps精度下的大小关系
-int dcmp(double x)
+struct Line{
+    Point s,e;
+    double A,B,C;
+    Line(){}
+    Line(Point _s,Point _e)
+    {
+        s = _s;
+        e = _e;
+        A = e.y-s.y;
+        B = s.x-e.x;
+        C = e^s;
+    }
+    //两直线相交求交点
+    //第一个值为0表示直线重合，为1表示平行，为2是相交
+    //只有第一个值为2时，交点才有意义
+    pair<int,Point> operator &(const Line &b)const
+    {
+        Point ans = Point();
+        if(dcmp((e-s)^(b.e-b.s)) == 0)
+        {
+            if(dcmp((b.e-s)^(b.e-b.s)) == 0)
+                return make_pair(0,ans);//重合
+            else
+                return make_pair(1,ans);//平行
+        }
+        ans.x = (B*b.C-b.B*C)/(A*b.B-b.A*B);
+        ans.y = (b.A*C-A*b.C)/(A*b.B-b.A*B);
+        return make_pair(2,ans);
+    }
+};
+//求点P关于直线L的对称点
+Point symmetry_point(Point P,Line L)
 {
-    if(fabs(x)<eps) return 0;
-    else
-        return x<0?-1:1;
+    Point ans = Point();
+    ans.x = P.x-2*L.A*(L.A*P.x+L.B*P.y+L.C)/(L.A*L.A+L.B*L.B);
+    ans.y = P.y-2*L.B*(L.A*P.x+L.B*P.y+L.C)/(L.A*L.A+L.B*L.B);
+    return ans;
 }
 //计算两点之间的距离
 double point_dis(Point a,Point b)
 {
-    return sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y));
+    return sqrt((a-b)*(a-b));
 }
 //判断点Q是否在P1和P2的直线上
 bool OnBeeline(Point P1,Point P2,Point Q)
@@ -196,4 +234,46 @@ void Jarvis()
         sta[cnt++]=i;
     }
     for(int i=0;i<cnt;i++) convex_hull[++num]=sta[i];
+}
+//凸包 Graham-Scan O(nlogn)
+//极角排序
+bool cmp(Point a,Point b)
+{
+    double tmp = (a-polygon[1])^(b-polygon[1]);
+    if(dcmp(tmp)>0) return true;
+    else if(dcmp(tmp)==0 && dcmp(point_dis(polygon[1],a)-point_dis(polygon[1],b))<0) return true;
+    else return false;
+}
+void Graham()
+{
+    int k=1;
+    for(int i=2;i<=n;i++)
+    {
+        if(dcmp(polygon[i].y-polygon[k].y)<0 || (dcmp(polygon[i].y-polygon[k].y)==0 && dcmp(polygon[i].x-polygon[k].x)<0))
+            k = i;
+    }
+    if(k!=1) swap(polygon[1],polygon[k]);
+    sort(polygon+2,polygon+n+1,cmp);
+    if(n==1)
+    {
+        num=1;
+        convex_hull[1]=1;
+        return;
+    }
+    if(n==2)
+    {
+        num=2;
+        convex_hull[1]=1;
+        convex_hull[2]=2;
+        return;
+    }
+    num=2;
+    convex_hull[1]=1;
+    convex_hull[2]=2;
+    for(int i=3;i<=n;i++)
+    {
+        while(num>1 && dcmp((polygon[convex_hull[num]]-polygon[convex_hull[num-1]])^(polygon[i]-polygon[convex_hull[num-1]]))<=0)
+            num--;
+        convex_hull[++num]=i;
+    }
 }
