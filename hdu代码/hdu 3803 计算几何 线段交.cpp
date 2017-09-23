@@ -89,7 +89,7 @@ pair<int,Point> segment_intersect_point(Point P1,Point P2,Point P3,Point P4)
     k4 = dcmp(s4 = (P4-P3)^(P2-P3));
 
     //πÊ∑∂œ‡Ωª
-    if(k1^k2==-2 && k3^k4==-2)
+    if((k1^k2)==-2 && (k3^k4)==-2)
     {
         ans.a = s1*P4.x-s2*P3.x;
         ans.b = s1-s2;
@@ -192,7 +192,7 @@ int main()
                 if(dcmp((P1-P3)^(P2-P3))==0 && dcmp((P1-P3)*(P2-P3))<=0)
                 {
                     printf("1\n");
-                    printf("I64d %I64d\n",P3.x,P3.y);
+                    printf("%I64d %I64d\n",P3.x,P3.y);
                 }
                 else
                     printf("0\n");
