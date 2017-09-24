@@ -102,6 +102,18 @@ bool InTriangle(Point A,Point B,Point C,Point P)
 	double Spbc = fabs((B-P)^(C-P));
 	return dcmp(Sabc-Spab-Spac-Spbc)==0;
 }
+//判断凸多边形poly[n] 允许共线边 点顺逆均可
+bool isconvex()
+{
+    bool s[3];
+    memset(s,false,sizeof(s));
+    for(int i=0;i<n;i++)
+    {
+        s[dcmp((poly[(i+1)%n]-poly[i])^(poly[(i+2)%n]-poly[i])) + 1] = true;
+        if(s[0] && s[2]) return false;
+    }
+    return true;
+}
 //判断点P在多边形内-射线法
 bool InPolygon(Point P)
 {
@@ -210,6 +222,75 @@ bool Segment_Intersect(Point A1,Point A2,Point B1,Point B2)
        dcmp(((A1-B1)^(B2-B1))*((B1-A2)^(B2-B1)))>=0)
        return true;
     else return false;
+}
+//判断P1P2与P3P4线段(不能是点)相交并求交点 1代表相交 0代表不相交 -1代表交点无数
+pair<int,Point> segment_intersect_point(Point P1,Point P2,Point P3,Point P4)
+{
+    Point ans;
+    int k1,k2,k3,k4;
+    ll s1,s2,s3,s4;
+    k1 = dcmp(s1 = (P2-P1)^(P3-P1));
+    k2 = dcmp(s2 = (P2-P1)^(P4-P1));
+    k3 = dcmp(s3 = (P4-P3)^(P1-P3));
+    k4 = dcmp(s4 = (P4-P3)^(P2-P3));
+
+    //规范相交
+    if((k1^k2)==-2 && (k3^k4)==-2)
+    {
+        ans.x = (s1*P4.x-s2*P3.x)/s1-s2;
+        ans.y = (s1*P4.y-s2*P3.y)/s1-s2;
+        return make_pair(1,ans);
+    }
+    ll mi1,mi2,mx1,mx2;
+    if(P1.x!=P2.x)
+    {
+        mi1 = min(P1.x,P2.x);
+        mx1 = max(P1.x,P2.x);
+        mi2 = min(P3.x,P4.x);
+        mx2 = max(P3.x,P4.x);
+    }
+    else
+    {
+        mi1 = min(P1.y,P2.y);
+        mx1 = max(P1.y,P2.y);
+        mi2 = min(P3.y,P4.y);
+        mx2 = max(P3.x,P4.y);
+    }
+    if(k1==0 && k2==0 && k3==0 && k4==0)
+    {
+        if(mi2 < mi1 && mi1 < mx2 ||
+           mi2 < mx1 && mx1 < mx2 ||
+           mi1 < mi2 && mi2 < mx1 ||
+           mi1 < mx2 && mx2 < mx1 ||
+           mi2 <= mi1 && mx1 <= mx2 ||
+           mi1 <= mi2 && mx2 <= mx1)
+            return make_pair(-1,ans);
+    }
+    if(k1==0 && dcmp((P1-P3)*(P2-P3))<=0)
+    {
+        ans.x = P3.x;
+        ans.y = P3.y;
+        return make_pair(1,ans);
+    }
+    if(k2==0 && dcmp((P1-P4)*(P2-P4))<=0)
+    {
+        ans.x = P4.x;
+        ans.y = P4.y;
+        return make_pair(1,ans);
+    }
+    if(k3==0 && dcmp((P3-P1)*(P4-P1))<=0)
+    {
+        ans.x = P1.x;
+        ans.y = P1.y;
+        return make_pair(1,ans);
+    }
+    if(k4==0 && dcmp((P3-P2)*(P4-P2))<=0)
+    {
+        ans.x = P2.x;
+        ans.y = P2.y;
+        return make_pair(1,ans);
+    }
+    return make_pair(0,ans);
 }
 //凸包 Jarvis步进法 O(nh) 
 void Jarvis()
