@@ -36,7 +36,7 @@ struct Point{
 	//排序用，按照x的坐标从小到大，如果x相同，那么按照y从小到大
     bool operator <(const Point &b)const
     {
-        return y<b.y||(y==b.y&&x<b.x);
+        return x<b.x||(x==b.x&&y<b.y);
     }
 };
 typedef Point Vector;
@@ -357,4 +357,22 @@ void Graham()
             num--;
         convex_hull[++num]=i;
     }
+}
+//旋转卡壳-最远点对
+//先求凸包 P[]为原给出点 cv[]为凸包顶点编号(逆时针) num为其个数
+double rotating_calipers()
+{
+    double ans = 0;
+    int j=2;
+    cv[num+1] = cv[1];
+    for(int i=1;i<=num;i++)
+    {
+        while(dcmp(((P[cv[i+1]]-P[cv[i]])^(P[cv[j+1]]-P[cv[i]]))-((P[cv[i+1]]-P[cv[i]])^(P[cv[j]]-P[cv[i]]))>0))
+        {
+            j++;
+            if(j>num) j=1;
+        }
+        ans = max(ans,point_dis(P[cv[i]],P[cv[j]]));
+    }
+    return ans;
 }
