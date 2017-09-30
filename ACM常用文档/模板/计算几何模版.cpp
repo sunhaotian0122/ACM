@@ -376,3 +376,35 @@ double rotating_calipers()
     }
     return ans;
 }
+//平面最近点对 O(nlogn)
+//P[]为给出点集 先以按横坐标排序
+//排序
+bool cmpy(int a,int b)
+{
+    return P[a].y<P[b].y;
+}
+//分治
+double closest_point(int l,int r)
+{
+    double d = INF;
+    if(l==r) return d;
+    if(l+1==r) return point_dis(P[l],P[r]);
+    int mid = (l+r)>>1;
+    d = min(closest_point(l,mid),closest_point(mid+1,r));
+    int k=0;
+    for(int i=l;i<=r;i++)
+    {
+        if(fabs(P[i].x-P[mid].x)<d) sz[++k] = i;
+    }
+    sort(sz+1,sz+1+k,cmpy);
+    for(int i=1;i<k;i++)
+    {
+        for(int j=i+1;j<=k;j++)
+        {
+            if(P[sz[j]].y-P[sz[i]].y>=d) break;
+            double tmp = point_dis(P[sz[i]],P[sz[j]]);
+            if(dcmp(tmp-d)<0) d = tmp;
+        }
+    }
+    return d;
+}
