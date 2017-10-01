@@ -42,7 +42,7 @@ int dfs(int s,int t,int f)
     return 0;
 }
 
-int Edmonds_Karp(int s,int t)
+int Ford-Fulkerson(int s,int t)
 {
     int res = 0;
     while(true)
@@ -65,7 +65,7 @@ int main()
             scanf("%d%d%d",&u,&v,&w);
             add_edge(u,v,w);
         }
-        printf("%d\n",Edmonds_Karp(1,m));
+        printf("%d\n",Ford-Fulkerson(1,m));
     }
     return 0;
 }
