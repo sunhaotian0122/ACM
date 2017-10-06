@@ -1,5 +1,5 @@
-const double eps = 1e-8;
-const double PI = acos(-1);
+#define eps 1e-8
+#define PI 3.14159265359
 
 //三态函数，判断两个double在eps精度下的大小关系
 int dcmp(double x)
