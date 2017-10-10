@@ -69,6 +69,15 @@ struct Line{
         ans.y = (b.A*C-A*b.C)/(A*b.B-b.A*B);
         return make_pair(2,ans);
     }
+	//半平面交极角排序
+    bool operator <(const Line &b)const
+    {
+        int d = dcmp(angle-b.angle);
+        if(d==0) //>0取平面左半为半平面 <0取右半
+            return dcmp((b.s-s)^(b.e-s)) > 0;
+        else
+            return d<0;
+    }
 };
 //求点P关于直线L的对称点
 Point symmetry_point(Point P,Line L)
@@ -407,4 +416,64 @@ double closest_point(int l,int r)
         }
     }
     return d;
+}
+//半平面交排序增量法 nlogn
+//以半平面取直线左半为例
+bool check(Line L0,Line L1,Line L2)
+{
+    Point tmp = (L1&L2).second;
+    return dcmp((L0.s-tmp)^(L0.e-tmp)) < 0;
+    //与上面自定义的<里的符号相反
+}
+//直线存在L[1-n]中 取左半为半平面
+//最后形成的有效交点存在P[1-n]中
+//dq[]模仿双端队列
+void HalfPlaneIntersect()
+{
+    sort(L+1,L+1+n);
+    int num=1;
+    for(int i=2;i<=n;i++)
+    {
+        if(dcmp(L[i].angle-L[num].angle)>0)
+            L[++num]=L[i];
+    }
+    dq[0] = 1, dq[1] = 2;
+    top = 1, tal = 0;
+    for(int i=3;i<=num;i++)
+    {
+        while(top>tal && check(L[i],L[dq[top]],L[dq[top-1]])) top--;
+        while(top>tal && check(L[i],L[dq[tal]],L[dq[tal+1]])) tal++;
+        dq[++top] = i;
+    }
+    while(top>tal && check(L[dq[tal]],L[dq[top]],L[dq[top-1]])) top--;
+    while(top>tal && check(L[dq[top]],L[dq[tal]],L[dq[tal+1]])) tal++;
+    dq[++top] = dq[tal];
+    n = 0;
+    for(int i=tal;i<top;i++)
+    {
+        P[++n] = (L[dq[i]]&L[dq[i+1]]).second;
+    }
+    P[++n] = P[1];
+}
+//半平面交n^2算法
+//以取平面右半为例
+//对每一条直线都要切割一次
+void HalfPlaneIntersect(Line L)
+{
+    int num=0;
+    for(int i=1;i<=m;i++)
+    {
+		//点在右半加入有效点
+        if(dcmp(L.A*bn[i].x+L.B*bn[i].y+L.C)<=0) cn[++num] = bn[i];
+        else
+        {
+			//在左半就判断i-1和i+1点在不在右半 在就取交点
+            if(dcmp(L.A*bn[i-1].x+L.B*bn[i-1].y+L.C)<0) cn[++num] = (Line(bn[i-1],bn[i])&L).second;
+            if(dcmp(L.A*bn[i+1].x+L.B*bn[i+1].y+L.C)<0) cn[++num] = (Line(bn[i+1],bn[i])&L).second;
+        }
+    }
+    for(int i=1;i<=num;i++) bn[i] = cn[i];
+    bn[0] = cn[num];
+    bn[num+1] = cn[1];
+    m=num;
 }
