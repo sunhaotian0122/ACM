@@ -23,6 +23,7 @@ struct Point{
 		return Point(x-b.x,y-b.y);
 	}
 	//点积
+	//P*Q>0 P与Q成锐角 <0为钝角 =0为直角
 	double operator *(const Point &b)const
 	{
 		return x*b.x + y*b.y;
@@ -122,6 +123,20 @@ bool isconvex()
         if(s[0] && s[2]) return false;
     }
     return true;
+}
+//多边形面积
+double PolygonArea()
+{
+    if(n<3)
+        return 0;
+    double res = 0;
+    for(int i=1;i<=n;i++)
+    {
+        res += P[i]^P[i+1];
+    }
+    if(dcmp(res)<0) res = -res;
+    res /= 2.0;
+    return res;
 }
 //判断点P在多边形内-射线法
 bool InPolygon(Point P)
